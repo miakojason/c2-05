@@ -124,17 +124,18 @@ function to($url)
 {
     header("location:$url");
 }
-$Total=new DB('total');
-$User=new DB('user');
-$News=new DB('news');
-$Que=new DB('que');
-$Log=new DB('log');
-if(!isset($_SESSION['user'])){
-    if($Total->count(['date'=>date('Y-m-d')])>0){
-        $total=$Total->find(['date'=>date('Y-m-d')]);
+$Total = new DB('total');
+$User = new DB('user');
+$News = new DB('news');
+$Que = new DB('que');
+$Log = new DB('log');
+if (!isset($_SESSION['visited'])) {
+    if ($Total->count(['date' => date('Y-m-d')]) > 0) {
+        $total = $Total->find(['date' => date('Y-m-d')]);
         $total['total']++;
         $Total->save($total);
-    }else{
-        $Total->save(['date'=>date('Y-m-d'),'total'=>1]);
+    } else {
+        $Total->save(['date' => date('Y-m-d'), 'total' => 1]);
     }
+    $_SESSION['visited'] = 1;
 }
