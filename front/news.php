@@ -4,6 +4,7 @@
         <tr>
             <th>標題</th>
             <th>內容</th>
+            <th></th>
         </tr>
         <?php
         $total = $News->count(['sh' => 1]);
@@ -17,8 +18,19 @@
             <tr>
                 <td class="clo item" data-id="<?= $row['id']; ?>"><?= $row['title']; ?></td>
                 <td>
-                    <div id="s<?= $row['id']; ?>"><?=mb_substr($row['text'],0,20);?>...</div>
+                    <div id="s<?= $row['id']; ?>"><?= mb_substr($row['text'], 0, 20); ?>...</div>
                     <pre id="a<?= $row['id']; ?>" style="display: none;"><?= $row['text']; ?></pre>
+                </td>
+                <td>
+                    <?php
+                    if (isset($_SESSION['user'])) {
+                        if($Log->count(['news'=>$row['id'],'acc'=>$_SESSION['user']])>0){
+                            echo "<a onclick=good({$row['id']})>收回讚</a>";
+                        }else{
+                            echo "<a onclick=good({$row['id']})>讚</a>";
+                        }
+                    }
+                    ?>
                 </td>
             </tr>
         <?php
@@ -43,9 +55,10 @@
     </div>
 </fieldset>
 <script>
-    $(".item").on('click',function(){
-        let id=$(this).data('id')
-        $("#s"+id).toggle()
-        $("#a"+id).toggle()
+    $(".item").on('click', function() {
+        let id = $(this).data('id')
+        $("#s" + id).toggle()
+        $("#a" + id).toggle()
     })
+  
 </script>
