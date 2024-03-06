@@ -25,10 +25,10 @@
             $(".article").html("")
         })
     }
-function getnews(id){
+    function getnews(id){
     $.post("./api/getnews.php",{id},(res)=>{
         $(".list-items").html("")
         $(".article").html(res)
-    })
-}
+        })
+    }
 </script>
