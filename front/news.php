@@ -25,13 +25,14 @@
                     <?php
                     if (isset($_SESSION['user'])) {
                         if($Log->count(['news'=>$row['id'],'acc'=>$_SESSION['user']])>0){
-                            echo "<a onclick=good({$row['id']})>收回讚</a>";
+                            echo "<a onclick='good({$row['id']})'>收回讚</a>";
                         }else{
-                            echo "<a onclick=good({$row['id']})>讚</a>";
+                            echo "<a onclick='good({$row['id']})'>讚</a>";
                         }
                     }
                     ?>
                 </td>
+
             </tr>
         <?php
         }
@@ -60,5 +61,9 @@
         $("#s" + id).toggle()
         $("#a" + id).toggle()
     })
-  
+    function good(id){
+        $.post("./api/good.php",{id},()=>{
+            location.reload();
+        })
+    }
 </script>
