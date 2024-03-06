@@ -24,3 +24,36 @@
         </tr>
     </table>
 </fieldset>
+<script>
+    function clean() {
+        $("input[type='text'],input[type='password'],input[type='radio']").val("")
+    }
+
+    function reg() {
+        let user = {
+            acc: $("#acc").val(),
+            pw: $("#pw").val(),
+            pw2: $("#pw2").val(),
+            email: $("#email").val()
+        }
+        if (user.acc != "" && user.pw != "" && user.pw2 != "" && user.email != "") {
+            if (user.pw == user.pw2) {
+                $.post("./api/chk_acc.php", {
+                    acc: user.acc
+                }, (res) => {
+                    if (parseInt(res) == 1) {
+                        alert("帳號重複")
+                    } else {
+                        $.post("./api/reg.php", user, () => {
+                            alert("註冊完成，歡迎加入")
+                        })
+                    }
+                })
+            } else {
+                alert("密碼錯誤")
+            }
+        } else {
+            alert("不可空白")
+        }
+    }
+</script>
