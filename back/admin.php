@@ -13,9 +13,11 @@
             ?>
                 <tr>
                     <td><?= $row['acc']; ?></td>
-                    <!-- <td><input style="border:0px" type="password" name="" value="<?= $row['acc']; ?>"></td> -->
-                    <td><?= str_repeat("*", mb_strlen($row['acc'])); ?></td>
-                    <td><input type="checkbox" name="del[]" value=""></td>
+                    <td><input style="border:0px" type="password" name="" value="<?= $row['acc']; ?>" readonly></td>
+                    <!-- <td><?= str_repeat("*", mb_strlen($row['acc'])); ?></td> -->
+                    <td>
+                        <input type="checkbox" name="del[]" value="<?=$row['id'];?>">
+                    </td>
                 </tr>
             <?php
             }
